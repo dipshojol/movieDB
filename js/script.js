@@ -8,23 +8,30 @@
         if (xhr.readyState == 4) {
             const jsonData = JSON.parse(xhr.responseText);
 
+            console.log(jsonData.results);
+
             jsonData.results.forEach(result => {
-                console.log(result.original_title);
-            });
+                console.log(`movie title: ${result.original_title}`);
+                document.querySelector("#movie-container").innerHTML += `<div class="single-container">
+                <div class="backdrop-path">
+                    <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/${result.backdrop_path}" alt="">
+                    <div class="movie-info">
+                        <div class="movie-details">
+                            <p>${result.original_title}</p>
+                            <p class="release-date">${result.release_date}</p>
+                            <p class="movie-overview">${result.overview}</p>
+                        </div>
+                        <div class="more-info">
+                            More info
+                        
+                        </div>
+                    </div>
+
+                
+                </div>`;
+            })
         }
     }
-
-    // const mainDiv = document.getElementById('main-div');
-
-    const $mainDiv = `
-    <h2>Now Showing</h2>
-    <div>
-
-    </div>
-        
-    `;
-
-    // document.querySelector("#main-page").innerHTML = $mainDiv;
 }());
 
 

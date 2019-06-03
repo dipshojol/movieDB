@@ -447,18 +447,6 @@ nav .global-nav .navClicked ul li {
   width: 100%;
 }
 
-/*will need it when i use multiple img for parralax*/
-/*.parallax-windows img:last-child{
-    position: absolute;
-    top: 474px;
-    left: 0;
-    height: 189px;
-}*/
-/*.parallax-wrapper div {
- max-width: 100%;
- width: 100%;
- display: block;
-}*/
 .welcomeMain {
   position: absolute;
   bottom: 200px;
@@ -502,66 +490,52 @@ nav .global-nav .navClicked ul li {
   /*animation: myWelcomeTextSecond 3s 1;*/
 }
 
-/* How it works section */
-.hiw {
-  width: 90%;
-  margin: auto;
-  font-family: 'Rajdhani', sans-serif;
-  padding: 50px;
+#movie-db .now-showing {
+  line-height: 50px;
+  margin-bottom: 30px;
+  background: #D3D3D3;
 }
 
-.hiw .hiw-text p {
-  font-size: 40px;
-  text-align: center;
-  text-transform: capitalize;
-  font-family: 'Days One', sans-serif;
-  padding-bottom: 20px;
-}
-
-.hiw .hiw-wrapper {
-  border: 1px solid #b4b4b4;
+#movie-db #movie-container {
+  width: 1000px;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 2fr 1fr 2fr 1fr 2fr;
-      grid-template-columns: 2fr 1fr 2fr 1fr 2fr;
-  text-align: center;
-  padding: 50px;
-}
-
-.hiw .hiw-wrapper span {
-  line-height: 15em;
-}
-
-.hiw .hiw-wrapper span .svg {
-  height: 50px;
-  -webkit-transition: -webkit-transform .6s;
-  transition: -webkit-transform .6s;
-  transition: transform .6s;
-  transition: transform .6s, -webkit-transform .6s;
-}
-
-.hiw .hiw-wrapper span .svg :hover {
-  -webkit-transform: scale(1.5);
-          transform: scale(1.5);
-}
-
-.hiw .hiw-wrapper .dash {
-  margin-top: -15px;
-  color: #b4b4b4;
-}
-
-.hiw .hiw-wrapper .hiw-process h3 {
-  line-height: 3em;
-  font-size: 27px;
-}
-
-.hiw .hiw-wrapper .hiw-process .hiw-symble {
-  display: block;
-  height: 200px;
-  width: 200px;
-  border: 1px solid #b4b4b4;
-  border-radius: 50%;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  grid-gap: 20px 0px;
   margin: auto;
+}
+
+#movie-db #movie-container .single-container {
+  height: 278px;
+  width: 480px;
+  margin: auto;
+  background: #D3D3D3;
+  overflow: hidden;
+}
+
+#movie-db #movie-container .single-container .backdrop-path {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 3fr;
+      grid-template-columns: 1fr 3fr;
+}
+
+#movie-db #movie-container .single-container .backdrop-path .movie-info {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 11fr 2fr;
+      grid-template-rows: 11fr 2fr;
+}
+
+#movie-db #movie-container .single-container .backdrop-path .movie-info .movie-details {
+  display: -ms-grid;
+  display: grid;
+}
+
+#movie-db #movie-container .single-container .backdrop-path .movie-info .more-info {
+  height: 40px;
+  border: 1px solid;
 }
 
 .firstsection {
@@ -585,10 +559,6 @@ nav .global-nav .navClicked ul li {
   color: #F0FFF0;
   /*padding: 100px;*/
   /*margin-top: auto; */
-}
-
-.paragraph {
-  height: 1089px;
 }
 
 /* Footer start here */
