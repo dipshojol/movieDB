@@ -522,20 +522,49 @@ nav .global-nav .navClicked ul li {
 }
 
 #movie-db #movie-container .single-container .backdrop-path .movie-info {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-rows: 11fr 2fr;
-      grid-template-rows: 11fr 2fr;
+  font-size: .8em;
 }
 
 #movie-db #movie-container .single-container .backdrop-path .movie-info .movie-details {
+  height: 238px;
+  overflow: hidden;
+}
+
+#movie-db #movie-container .single-container .backdrop-path .movie-info .movie-details .title-container {
+  height: 50px;
   display: -ms-grid;
   display: grid;
+  padding: 10px;
+}
+
+#movie-db #movie-container .single-container .backdrop-path .movie-info .movie-details .title-container h3 {
+  margin: 0;
+}
+
+#movie-db #movie-container .single-container .backdrop-path .movie-info .movie-details .movie-overview p {
+  padding: 10px;
 }
 
 #movie-db #movie-container .single-container .backdrop-path .movie-info .more-info {
-  height: 40px;
-  border: 1px solid;
+  border-top: 1px solid #8c8c8c;
+  display: -ms-grid;
+  display: grid;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  padding: 10px;
+}
+
+#movie-db #movie-container .single-container .backdrop-path .movie-info .more-info .more-info-inner {
+  cursor: pointer;
+}
+
+.container {
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 20px 0;
 }
 
 .firstsection {
