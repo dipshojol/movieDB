@@ -31,7 +31,9 @@ window.onload = function() {
         return `
         <div class="single-container">
             <div class="backdrop-path">
-                <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/${result.poster_path}" alt="">
+            <div class="movie-img">
+                <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/${result.poster_path}" class="" alt="">
+                </div>
                 <div class="movie-info">
                     <div class="movie-details">
                         <div class="title-container">
@@ -42,8 +44,8 @@ window.onload = function() {
                             <p>${result.overview.slice(1, 350)}</p>
                         </div>
                     </div>
-                    <div class="more-info" data-container-id="${result.id}">
-                        <p class="more-info-inner" data-container-id="${result.id}">More info</p>
+                    <div class="more-details" data-container-id="${result.id}">
+                        <p class="more-details-inner" data-container-id="${result.id}">More info</p>
                     </div>
                 </div>
             </div>
@@ -53,6 +55,8 @@ window.onload = function() {
 
     const moreInfoFun = ()=>{
         let moreInfo = document.querySelectorAll(".more-info");
+        const apiKey = "eb942738a2bb8b5943c88166d66d5f7d";
+
 
         moreInfo.forEach(function(event) {
             // console.log(event);
@@ -60,7 +64,7 @@ window.onload = function() {
                 if (!isNaN(event.target.dataset.containerId)) {
                     const endPointMoreInfo = `https://api.themoviedb.org/3/movie/${event.target.dataset.containerId}?api_key=${apiKey}&language=en-US`;
                     // https://api.themoviedb.org/3/movie/373571?api_key=eb942738a2bb8b5943c88166d66d5f7d&language=en-US
-    
+
                     const xhrMoreInfo = new XMLHttpRequest;
     
                     xhrMoreInfo.open("GET", endPointMoreInfo);
@@ -79,8 +83,6 @@ window.onload = function() {
     }
 
 
-
-    // const pagination = ()=>{
         const $pagination = document.querySelector('.pagination');
         const getPageNo = sessionStorage.getItem("pageNo");
 
@@ -108,10 +110,13 @@ window.onload = function() {
                 sessionStorage.setItem("pageNo", `${parseFloat(sessionStorage.getItem("pageNo"))+1}`);
                 innitialAPIcall(`${parseFloat(sessionStorage.getItem("pageNo"))}`);
             }else if(event.target.innerText == "Previous"){
-                sessionStorage.setItem("pageNo", `${parseFloat(sessionStorage.getItem("pageNo"))-1}`);
-                innitialAPIcall(`${parseFloat(sessionStorage.getItem("pageNo"))}`);
-            }
-        })
-    // }
+                if(parseFloat(sessionStorage.getItem("pageNo")) > 1){
+                    sessionStorage.setItem("pageNo", `${parseFloat(sessionStorage.getItem("pageNo"))-1}`);
+                    innitialAPIcall(`${parseFloat(sessionStorage.getItem("pageNo"))}`);
 
+                }
+                
+            }
+
+        })
 };

@@ -241,6 +241,10 @@ input[type="checkbox"], input[type="radio"] {
   padding: 0;
 }
 
+p {
+  margin-bottom: 0;
+}
+
 body {
   max-width: 1080px;
   margin: auto;
@@ -431,9 +435,6 @@ nav .global-nav .navClicked ul li {
 /* Parallax container*/
 .parallax-wrapper {
   position: relative;
-  width: auto;
-  height: auto;
-  overflow: auto;
   white-space: nowrap;
   margin-bottom: 30px;
 }
@@ -497,41 +498,43 @@ nav .global-nav .navClicked ul li {
 }
 
 #movie-db #movie-container {
-  width: 1000px;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 1fr 1fr;
       grid-template-columns: 1fr 1fr;
-  grid-gap: 20px 0px;
-  margin: auto;
+  grid-gap: 10px 0px;
 }
 
 #movie-db #movie-container .single-container {
-  height: 278px;
-  width: 480px;
-  margin: auto;
   background: #D3D3D3;
-  overflow: hidden;
 }
 
 #movie-db #movie-container .single-container .backdrop-path {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 3fr;
-      grid-template-columns: 1fr 3fr;
+  -ms-grid-columns: 1fr 40fr;
+      grid-template-columns: 1fr 40fr;
+}
+
+#movie-db #movie-container .single-container .backdrop-path .movie-img {
+  border: 1px solid white;
+  grid: movie-img;
 }
 
 #movie-db #movie-container .single-container .backdrop-path .movie-info {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 6fr 1fr;
+      grid-template-rows: 6fr 1fr;
   font-size: .8em;
 }
 
 #movie-db #movie-container .single-container .backdrop-path .movie-info .movie-details {
-  height: 238px;
+  max-height: 238px;
   overflow: hidden;
 }
 
 #movie-db #movie-container .single-container .backdrop-path .movie-info .movie-details .title-container {
-  height: 50px;
   display: -ms-grid;
   display: grid;
   padding: 10px;
@@ -542,19 +545,15 @@ nav .global-nav .navClicked ul li {
 }
 
 #movie-db #movie-container .single-container .backdrop-path .movie-info .movie-details .movie-overview p {
-  padding: 10px;
+  padding-left: 10px;
 }
 
-#movie-db #movie-container .single-container .backdrop-path .movie-info .more-info {
+#movie-db #movie-container .single-container .backdrop-path .movie-info .more-details {
   border-top: 1px solid #8c8c8c;
-  display: -ms-grid;
-  display: grid;
-  -ms-flex-line-pack: center;
-      align-content: center;
-  padding: 10px;
+  padding: 9px;
 }
 
-#movie-db #movie-container .single-container .backdrop-path .movie-info .more-info .more-info-inner {
+#movie-db #movie-container .single-container .backdrop-path .movie-info .more-details .more-details-inner {
   cursor: pointer;
 }
 
@@ -600,30 +599,52 @@ footer .footer-container {
   background: #212121;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 2fr 2fr 2fr 2fr;
-      grid-template-columns: 2fr 2fr 2fr 2fr;
-  padding: 75px 0 0 75px;
-  height: 300px;
+  -ms-grid-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+  justify-items: center;
+      grid-template-areas: "footer-inner-container-1 footer-inner-container-2 footer-inner-container-3 footer-inner-container-4";
 }
 
-footer .footer-container .footer-inner-container {
+footer .footer-container .footer-inner-container-1 {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: footer-inner-container-1;
+}
+
+footer .footer-container .footer-inner-container-2 {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: footer-inner-container-2;
+}
+
+footer .footer-container .footer-inner-container-3 {
+  -ms-grid-row: 1;
+  -ms-grid-column: 3;
+  grid-area: footer-inner-container-3;
+}
+
+footer .footer-container .footer-inner-container-4 {
+  -ms-grid-row: 1;
+  -ms-grid-column: 4;
+  grid-area: footer-inner-container-4;
+}
+
+footer .footer-container .footer-inner-container-1, footer .footer-container .footer-inner-container-2, footer .footer-container .footer-inner-container-3, footer .footer-container .footer-inner-container-4 {
   padding: 20px;
-  border-right: 1px solid #4a4a4a9c;
-  height: 200px;
 }
 
-footer .footer-container .footer-inner-container ul {
+footer .footer-container .footer-inner-container-1 ul, footer .footer-container .footer-inner-container-2 ul, footer .footer-container .footer-inner-container-3 ul, footer .footer-container .footer-inner-container-4 ul {
   list-style: none;
   font-size: .8em;
 }
 
-footer .footer-container .footer-inner-container ul a {
+footer .footer-container .footer-inner-container-1 ul a, footer .footer-container .footer-inner-container-2 ul a, footer .footer-container .footer-inner-container-3 ul a, footer .footer-container .footer-inner-container-4 ul a {
   text-decoration: none;
   color: #fff;
   line-height: 30px;
 }
 
-footer .footer-container .footer-inner-container h2 {
+footer .footer-container .footer-inner-container-1 h2, footer .footer-container .footer-inner-container-2 h2, footer .footer-container .footer-inner-container-3 h2, footer .footer-container .footer-inner-container-4 h2 {
   line-height: 60px;
   font-weight: bold;
   margin: 0;
