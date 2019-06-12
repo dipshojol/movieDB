@@ -368,14 +368,17 @@ header nav ul li:hover ul.inner-manu li {
   }
 }
 
-header .navClicked ul {
-  display: block !important;
-  position: absolute;
-  margin-top: 65px;
-  width: 100%;
+header nav.navClicked {
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
 }
 
-header .navClicked ul li {
+header nav.navClicked ul.main-manu {
+  display: -ms-grid;
+  display: grid;
+}
+
+header nav.navClicked ul.main-manu li {
   width: 100%;
   background: gray;
   border-bottom: 1px solid;
@@ -635,9 +638,6 @@ footer .footer-social {
 
 /* RESPONSIVE MEDIA QUERIES */
 @media screen and (max-width: 768px) {
-  header nav {
-    width: 768px;
-  }
   header nav ul.main-manu li {
     padding-left: 30px;
   }
@@ -652,21 +652,28 @@ footer .footer-social {
   }
 }
 
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 575px), (max-width: 414px) {
   header nav .hamburger {
     display: block;
   }
   header nav .logo {
     margin-left: 10px;
   }
-  header nav ul.main-manu li {
+  header nav ul.main-manu {
     display: none;
+  }
+  main .parallax-container .welcomeContainer {
+    top: 150px;
+    font-size: .5em;
   }
   main #movie-db #movie-container {
     display: inline;
   }
   main #movie-db #movie-container .single-container {
     margin-bottom: 10px;
+  }
+  main #movie-db .now-showing {
+    margin-bottom: 0;
   }
   main footer .footer-container {
     -ms-grid-columns: 1fr 1fr;

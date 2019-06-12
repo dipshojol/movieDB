@@ -3,9 +3,9 @@
 // alert("this is my js")
 (function(){
 
-    document.querySelector('.hamburger').click(() => {
+    document.querySelector('.hamburger').addEventListener("click", ()=>{
         jQuery('.nav-wrapper').toggleClass('navClicked');
-    });
+    })
 
     // welcome animation start
     jQuery(".welcometext1").animate({
