@@ -16,7 +16,7 @@
 
     jQuery(".welcometext2").animate({
         color: '#000',
-        top: '65',
+        top: '0',
         opacity: 1
     }, 3000);
 }());
@@ -25,13 +25,13 @@
 jQuery(window).scroll(() => {
     let wScroll = jQuery(this).scrollTop();
     
-    jQuery('.welcomeMain').css({
-        'transform': `translate(0px, ${wScroll/1}%)`
+    jQuery('.welcomeContainer').css({
+        'transform': `translate(0px, ${wScroll/4}%)`
     });
 
     if (wScroll > 1) {
-        $('nav').css({
-            'opacity': wScroll/1000 + .6
+        $('header').css({
+            'opacity': wScroll/1000 + .6,
         })
     }else{
         $('nav').css({

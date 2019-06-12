@@ -261,48 +261,45 @@ main .loginContainer {
 }
 
 /*  navigation start  */
-nav {
+header {
   position: fixed;
   width: 100%;
-  height: 50px;
   background-color: #333;
-  top: 0;
   left: 0;
   z-index: 1;
   opacity: .7;
 }
 
-nav .global-nav .nav-wrapper {
+header nav {
+  max-width: 1080px;
+  margin: auto;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 7fr 25fr;
-      grid-template-columns: 7fr 25fr;
-  margin: -1px auto;
-  width: 1000px;
+  -ms-grid-columns: 7fr 22fr;
+      grid-template-columns: 7fr 22fr;
 }
 
-nav .global-nav .nav-wrapper .logo {
+header nav .logo {
   margin: auto;
   overflow: hidden;
   color: white;
   font-size: 20px;
   border: 3px solid #fff;
   padding: 0 20px;
-  font-family: 'Srisakdi', cursive;
 }
 
-nav .global-nav .nav-wrapper .logo img {
-  height: 50px;
+header nav ul.main-manu {
+  margin: 0;
 }
 
-nav .global-nav .nav-wrapper ul.main-manu > li {
+header nav ul.main-manu > li {
   text-align: center;
   display: inline-block;
   padding-left: 60px;
 }
 
-nav .global-nav .nav-wrapper ul li,
-nav .global-nav .nav-wrapper ul li a {
+header nav ul li,
+header nav ul li a {
   list-style: none;
   cursor: pointer;
   font-weight: bold;
@@ -315,15 +312,15 @@ nav .global-nav .nav-wrapper ul li a {
   font-family: 'Rajdhani', sans-serif;
 }
 
-nav .global-nav .nav-wrapper ul li ul,
-nav .global-nav .nav-wrapper ul li a ul {
+header nav ul li ul,
+header nav ul li a ul {
   position: absolute;
   width: 200px;
   margin-top: -1px;
 }
 
-nav .global-nav .nav-wrapper ul li ul li,
-nav .global-nav .nav-wrapper ul li a ul li {
+header nav ul li ul li,
+header nav ul li a ul li {
   display: none;
   line-height: 40px;
   background-color: #000;
@@ -331,22 +328,22 @@ nav .global-nav .nav-wrapper ul li a ul li {
   padding-left: 20px;
 }
 
-nav .global-nav .nav-wrapper ul li :hover,
-nav .global-nav .nav-wrapper ul li a :hover {
+header nav ul li :hover,
+header nav ul li a :hover {
   color: #D3D3D3;
 }
 
-nav .global-nav .nav-wrapper ul li .inner-manu li:last-child,
-nav .global-nav .nav-wrapper ul li a .inner-manu li:last-child {
+header nav ul li .inner-manu li:last-child,
+header nav ul li a .inner-manu li:last-child {
   border-radius: 0 0 3px 3px;
 }
 
-nav .global-nav .nav-wrapper ul li .inner-manu li:first-child,
-nav .global-nav .nav-wrapper ul li a .inner-manu li:first-child {
+header nav ul li .inner-manu li:first-child,
+header nav ul li a .inner-manu li:first-child {
   border-top: 0px;
 }
 
-nav .global-nav .nav-wrapper ul li:hover ul.inner-manu li {
+header nav ul li:hover ul.inner-manu li {
   display: block;
   -webkit-animation: manu-dropdown 600ms ease-in-out forwards;
           animation: manu-dropdown 600ms ease-in-out forwards;
@@ -371,14 +368,14 @@ nav .global-nav .nav-wrapper ul li:hover ul.inner-manu li {
   }
 }
 
-nav .global-nav .navClicked ul {
+header .navClicked ul {
   display: block !important;
   position: absolute;
   margin-top: 65px;
   width: 100%;
 }
 
-nav .global-nav .navClicked ul li {
+header .navClicked ul li {
   width: 100%;
   background: gray;
   border-bottom: 1px solid;
@@ -433,61 +430,43 @@ nav .global-nav .navClicked ul li {
 }
 
 /* Parallax container*/
-.parallax-wrapper {
+.parallax-container {
   position: relative;
-  white-space: nowrap;
-  margin-bottom: 30px;
+  overflow: hidden;
 }
 
-.parallax-wrapper .parallax-windows {
-  width: 100%;
-  display: inline-block;
-}
-
-.parallax-wrapper .parallax-windows img {
+.parallax-container .parallax-windows img {
   width: 100%;
 }
 
-.welcomeMain {
-  position: absolute;
-  bottom: 200px;
-  left: 50%;
-  width: 900px;
-  margin-left: -450px;
-}
-
-.welcomeMain .welcomeContainer {
+.parallax-container .welcomeContainer {
   text-transform: capitalize;
   font-weight: 700;
-  text-align: center;
+  display: -ms-grid;
+  display: grid;
+  position: absolute;
+  top: 400px;
+  width: 100%;
+  justify-items: center;
 }
 
-.welcomeMain .welcomeContainer .welcometext1 {
+.parallax-container .welcomeContainer .welcometext1 {
   font-family: 'Concert One', cursive;
   font-size: 50px;
   color: #fff;
   letter-spacing: 4px;
-  position: absolute;
-  width: 100%;
-  top: 25px;
+  position: relative;
+  top: 35px;
   opacity: 0;
-  /*animation: myWelcomeTextFirst 3s 1;*/
-  /*  animation-name: myWelcome;
-    animation-duration: 3s;
-    animation-timing-function: ease-in-out;
-    animation-delay: 0s;
-    animation-iteration-count: 1;
-    animation-direction: alternate;
-    animation-fill-mode: forwards;
-    animation-play-state: paused; */
 }
 
-.welcomeMain .welcomeContainer .welcometext2 {
+.parallax-container .welcomeContainer .welcometext2 {
   font-family: 'Concert One', cursive;
   font-size: 22px;
   color: #fff;
   position: relative;
   opacity: 0;
+  top: -35px;
   /*animation: myWelcomeTextSecond 3s 1;*/
 }
 
@@ -517,7 +496,6 @@ nav .global-nav .navClicked ul li {
 }
 
 #movie-db #movie-container .single-container .backdrop-path .movie-img {
-  border: 1px solid white;
   grid: movie-img;
 }
 
@@ -656,15 +634,43 @@ footer .footer-social {
 }
 
 /* RESPONSIVE MEDIA QUERIES */
-@media screen and (max-width: 600px) {
-  nav .global-nav ul {
-    display: none;
+@media screen and (max-width: 768px) {
+  header nav {
+    width: 768px;
   }
-  .logo {
-    position: absolute;
-    right: 0;
+  header nav ul.main-manu li {
+    padding-left: 30px;
   }
+  main .parallax-container .welcomeContainer {
+    top: 250px;
+  }
+  main .parallax-container .welcomeContainer .welcometext1 {
+    font-size: 2em;
+  }
+  main .parallax-container .welcomeContainer .welcometext2 {
+    font-size: 1em;
+  }
+}
+
+@media screen and (max-width: 375px) {
   header nav .hamburger {
     display: block;
+  }
+  header nav .logo {
+    margin-left: 10px;
+  }
+  header nav ul.main-manu li {
+    display: none;
+  }
+  main #movie-db #movie-container {
+    display: inline;
+  }
+  main #movie-db #movie-container .single-container {
+    margin-bottom: 10px;
+  }
+  main footer .footer-container {
+    -ms-grid-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: "footer-inner-container-1 footer-inner-container-2" "footer-inner-container-3 footer-inner-container-4";
   }
 }
