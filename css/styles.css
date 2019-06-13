@@ -260,6 +260,45 @@ main .loginContainer {
   padding-top: 200px;
 }
 
+main #popup-wrapper #popup {
+  position: fixed;
+  width: 400px;
+  height: 500px;
+  border: 3px solid;
+  background: #F8F8F8;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  margin-left: -250px;
+  margin-top: -250px;
+  color: white;
+  display: none;
+  color: black;
+}
+
+main #popup-wrapper #popup span {
+  position: absolute;
+  padding: 20px;
+  border: 1px solid;
+  color: #000;
+}
+
+main #popup-wrapper #popup .movie-img {
+  border-bottom: 1px solid gray;
+}
+
+main #popup-wrapper #popup .movie-img img {
+  margin: auto;
+  display: -ms-grid;
+  display: grid;
+}
+
+main #popup-wrapper #popup.active {
+  display: block;
+  -webkit-animation: manu-dropdown 600ms ease-in-out forwards;
+          animation: manu-dropdown 600ms ease-in-out forwards;
+}
+
 /*  navigation start  */
 header {
   position: fixed;
@@ -268,6 +307,7 @@ header {
   left: 0;
   z-index: 1;
   opacity: .7;
+  color: #fff;
 }
 
 header nav {
@@ -653,6 +693,9 @@ footer .footer-social {
 }
 
 @media screen and (max-width: 575px), (max-width: 414px) {
+  header {
+    opacity: 1;
+  }
   header nav .hamburger {
     display: block;
   }

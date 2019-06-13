@@ -29,13 +29,13 @@ jQuery(window).scroll(() => {
         'transform': `translate(0px, ${wScroll/4}%)`
     });
 
-    if (wScroll > 1) {
-        $('header').css({
-            'opacity': wScroll/1000 + .6,
-        })
-    }else{
-        $('nav').css({
-            'opacity': '.6'
-        })
-    }
+    // if (wScroll > 1) {
+    //     $('header').css({
+    //         'opacity': wScroll/1000 + .6,
+    //     })
+    // }else{
+    //     $('nav').css({
+    //         'opacity': '.6'
+    //     })
+    // }
 });

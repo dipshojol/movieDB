@@ -20,19 +20,21 @@ window.onload = function() {
         }
     
     }
-    
+
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    const dateFormatter = () => {
+        let month = `${release_date.split('-')[1]}`;
+        return `${months[month < 10 ? month.slice(1):month.slice(0)]}`
+    }
     
     let formatHTML = (result) => {
-        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        const dateFormatter = (release_date = result.release_date) => {
-            let month = `${release_date.split('-')[1]}`;
-            return `${months[month < 10 ? month.slice(1):month.slice(0)]}`
-        }
+        dateFormatter(release_date = result.release_date);
         return `
         <div class="single-container">
             <div class="backdrop-path">
             <div class="movie-img">
-                <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/${result.poster_path}" class="" alt="">
+                <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/${result.poster_path}" data-container-id="${result.id}" class="more-details" alt="">
                 </div>
                 <div class="movie-info">
                     <div class="movie-details">
@@ -53,15 +55,44 @@ window.onload = function() {
     }
 
 
+    const $popupHTML = (result)=>{
+        return `<span id="close-btn">x</span>
+        <div class="movie-img">
+        <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/${result.backdrop_path}" data-container-id="${result.id}" class="more-details" alt="">
+        </div>
+        <div class="popup-movie-details">
+            <div class="movie-info">
+            <div class="movie-details">
+                <div class="title-container">
+                    <h3>${result.original_title}</h3>
+                    <p class="release-date">${dateFormatter()} ${result.release_date.split('-')[2]}, ${result.release_date.split('-')[0]}</p>
+                </div>
+                <div class="movie-overview">
+                    <p>${result.overview.slice(1, 350)}</p>
+                </div>
+            </div>
+            <div class="more-details" data-container-id="${result.id}">
+                <p class="more-details-inner" data-container-id="${result.id}">More info</p>
+            </div>
+        </div>
+        </div>
+        `
+    }
+
     const moreInfoFun = ()=>{
-        let moreInfo = document.querySelectorAll(".more-info");
+        let moreDetails = document.querySelectorAll(".more-details");
+        const closeMe = document.querySelector("#popup-wrapper");
+        const popupWrapper = document.querySelector("#popup-wrapper");
+
         const apiKey = "eb942738a2bb8b5943c88166d66d5f7d";
 
-
-        moreInfo.forEach(function(event) {
+        moreDetails.forEach(function(event) {
             // console.log(event);
             event.addEventListener("click", (event) => {
+                // console.log(event);
                 if (!isNaN(event.target.dataset.containerId)) {
+                // console.log("clicked");
+
                     const endPointMoreInfo = `https://api.themoviedb.org/3/movie/${event.target.dataset.containerId}?api_key=${apiKey}&language=en-US`;
                     // https://api.themoviedb.org/3/movie/373571?api_key=eb942738a2bb8b5943c88166d66d5f7d&language=en-US
 
@@ -72,14 +103,22 @@ window.onload = function() {
                     xhrMoreInfo.onreadystatechange = () => {
                         if (xhrMoreInfo.readyState == 4) {
                             const jsonDataMoreInfo = JSON.parse(xhrMoreInfo.responseText);
+                            const $popup = document.querySelector("#popup");
     
                             console.log(jsonDataMoreInfo);
+                            $popup.classList.add("active");
+                            $popup.innerHTML = $popupHTML(jsonDataMoreInfo);
+
+                            document.querySelector("#close-btn").addEventListener("click", ()=>{
+                                $popup.classList.remove("active");
+
+                            })
+
                         }
                     };
                 }
             })
         });
-
     }
 
 
