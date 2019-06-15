@@ -264,7 +264,7 @@ main #popup-wrapper #popup {
   position: fixed;
   width: 400px;
   height: 500px;
-  border: 3px solid;
+  border: 5px solid #808080;
   background: #F8F8F8;
   z-index: 1;
   top: 50%;
@@ -274,29 +274,79 @@ main #popup-wrapper #popup {
   color: white;
   display: none;
   color: black;
+  border-radius: 3%;
+  padding: 6px;
+  overflow: scroll;
+}
+
+main #popup-wrapper #popup .movie-img {
+  margin: 10px 0;
+  height: 150px;
+}
+
+main #popup-wrapper #popup .movie-img img {
+  height: 100%;
+  margin: auto;
+  display: -ms-grid;
+  display: grid;
+}
+
+main #popup-wrapper #popup .popup-movie-details {
+  border-top: 1px solid #808080;
+  padding-top: 10px;
+}
+
+main #popup-wrapper #popup .popup-movie-details .movie-details .title-container {
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+main #popup-wrapper #popup .popup-movie-details .movie-details .title-container h2 {
+  margin-bottom: 0;
+}
+
+main #popup-wrapper #popup .popup-movie-details .movie-details .title-container .release-date {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: gray;
+}
+
+main #popup-wrapper #popup .popup-movie-details .movie-details .movie-overview {
+  padding: 0px 15px;
 }
 
 main #popup-wrapper #popup span {
   position: absolute;
-  padding: 20px;
-  border: 1px solid;
+  padding: 2px 11px;
   color: #000;
-}
-
-main #popup-wrapper #popup .movie-img {
-  border-bottom: 1px solid gray;
-}
-
-main #popup-wrapper #popup .movie-img img {
-  margin: auto;
-  display: -ms-grid;
-  display: grid;
+  cursor: pointer;
 }
 
 main #popup-wrapper #popup.active {
   display: block;
   -webkit-animation: manu-dropdown 600ms ease-in-out forwards;
           animation: manu-dropdown 600ms ease-in-out forwards;
+}
+
+main #popup-wrapper #popup.active-trailer {
+  -webkit-animation: manu-dropdown 600ms ease-in-out forwards;
+          animation: manu-dropdown 600ms ease-in-out forwards;
+  width: 560px;
+  height: 343px;
+  display: block;
+  border: none;
+  border-radius: 0%;
+}
+
+main #popup-wrapper #popup.active-trailer span {
+  bottom: 0;
+  display: block;
+  padding: 3px;
+}
+
+main iframe {
+  width: 100%;
 }
 
 /*  navigation start  */
@@ -569,6 +619,12 @@ header nav.navClicked ul.main-manu li {
   padding-left: 10px;
 }
 
+#movie-db #movie-container .single-container .backdrop-path .movie-info .movie-details .movie-trailer {
+  color: #0000CD;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
 #movie-db #movie-container .single-container .backdrop-path .movie-info .more-details {
   border-top: 1px solid #8c8c8c;
   padding: 9px;
@@ -576,6 +632,7 @@ header nav.navClicked ul.main-manu li {
 
 #movie-db #movie-container .single-container .backdrop-path .movie-info .more-details .more-details-inner {
   cursor: pointer;
+  color: #008000;
 }
 
 .container {

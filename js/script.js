@@ -1,13 +1,19 @@
 // alert("hallow world");
 window.onload = function() {
+    // let myTemplateLiteral = {
+    //     apiKey: `eb942738a2bb8b5943c88166d66d5f7d`,
+    //     endPointAllMovie: `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=en-US&region=US&page=${pageNo}`,
+    //     endPointSingleMovie: `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=en-US&region=US&page=${pageNo}`,
+    //     endPointTrailer: `https://api.themoviedb.org/3/movie/${event.target.dataset.containerId}/videos?api_key=${apiKey}&language=en-US`
+    // }
+
+    const apiKey = "eb942738a2bb8b5943c88166d66d5f7d";
 
         
 
-    const innitialAPIcall = (pageNo)=>{
-        const apiKey = "eb942738a2bb8b5943c88166d66d5f7d";
-        // let pageNo = 1;
+    const getAllMovieData = (endPoint)=>{
         const xhr = new XMLHttpRequest();
-        const endPoint = `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=en-US&region=US&page=${pageNo}`;
+        // const endPoint = `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=en-US&region=US&page=${pageNo}`;
 
         xhr.open("GET", endPoint);
         xhr.send();
@@ -15,11 +21,15 @@ window.onload = function() {
             if (xhr.readyState == 4) {
                 const jsonData = JSON.parse(xhr.responseText);
                 document.querySelector("#movie-container").innerHTML = jsonData.results.map(formatHTML).join(``);
-                moreInfoFun();
+                movieTrailer();
+                // if(){
+                    moreInfoFun();
+                // }
             }
         }
     
     }
+    
 
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
@@ -42,8 +52,12 @@ window.onload = function() {
                             <h3>${result.original_title}</h3>
                             <p class="release-date">${dateFormatter()} ${result.release_date.split('-')[2]}, ${result.release_date.split('-')[0]}</p>
                         </div>
+                        <div class="movie-trailer" data-container-id="${result.id}">
+                            Movie Trailer
+                        </div>
                         <div class="movie-overview">
-                            <p>${result.overview.slice(1, 350)}</p>
+                            
+                            <p>Overview: ${result.overview.slice(1, 350)}</p>
                         </div>
                     </div>
                     <div class="more-details" data-container-id="${result.id}">
@@ -51,9 +65,10 @@ window.onload = function() {
                     </div>
                 </div>
             </div>
-            </div>`;
+            </div>
+            
+            `;
     }
-
 
     const $popupHTML = (result)=>{
         return `<span id="close-btn">x</span>
@@ -61,41 +76,49 @@ window.onload = function() {
         <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/${result.backdrop_path}" data-container-id="${result.id}" class="more-details" alt="">
         </div>
         <div class="popup-movie-details">
-            <div class="movie-info">
             <div class="movie-details">
                 <div class="title-container">
-                    <h3>${result.original_title}</h3>
-                    <p class="release-date">${dateFormatter()} ${result.release_date.split('-')[2]}, ${result.release_date.split('-')[0]}</p>
+                    <h2>${result.original_title}</h2>
+                    <p class="release-date">(${dateFormatter()} ${result.release_date.split('-')[2]}, ${result.release_date.split('-')[0]})</p>
+                    <p>$$ ${result.budget}</p>    
                 </div>
+
+                
+                
                 <div class="movie-overview">
-                    <p>${result.overview.slice(1, 350)}</p>
+                    <p>${result.overview}</p>
                 </div>
             </div>
-            <div class="more-details" data-container-id="${result.id}">
-                <p class="more-details-inner" data-container-id="${result.id}">More info</p>
-            </div>
-        </div>
+
         </div>
         `
     }
 
+    const $popupHTMLTrailer = (result)=>{
+        return `
+        <div id="trailer-wrapper">
+        <span id="close-btn">x</span>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/${result.results[0].key}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>`
+    }
+    const $popup = document.querySelector("#popup");
+
     const moreInfoFun = ()=>{
         let moreDetails = document.querySelectorAll(".more-details");
-        const closeMe = document.querySelector("#popup-wrapper");
-        const popupWrapper = document.querySelector("#popup-wrapper");
 
-        const apiKey = "eb942738a2bb8b5943c88166d66d5f7d";
+        // const apiKey = "eb942738a2bb8b5943c88166d66d5f7d";
 
         moreDetails.forEach(function(event) {
             // console.log(event);
             event.addEventListener("click", (event) => {
+                // const $youtube = `<iframe width="560" height="315" src="https://www.youtube.com/embed/${}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+
                 // console.log(event);
                 if (!isNaN(event.target.dataset.containerId)) {
                 // console.log("clicked");
 
                     const endPointMoreInfo = `https://api.themoviedb.org/3/movie/${event.target.dataset.containerId}?api_key=${apiKey}&language=en-US`;
                     // https://api.themoviedb.org/3/movie/373571?api_key=eb942738a2bb8b5943c88166d66d5f7d&language=en-US
-
                     const xhrMoreInfo = new XMLHttpRequest;
     
                     xhrMoreInfo.open("GET", endPointMoreInfo);
@@ -103,7 +126,6 @@ window.onload = function() {
                     xhrMoreInfo.onreadystatechange = () => {
                         if (xhrMoreInfo.readyState == 4) {
                             const jsonDataMoreInfo = JSON.parse(xhrMoreInfo.responseText);
-                            const $popup = document.querySelector("#popup");
     
                             console.log(jsonDataMoreInfo);
                             $popup.classList.add("active");
@@ -122,17 +144,67 @@ window.onload = function() {
     }
 
 
+    const movieTrailer = ()=>{
+        let trailerContainer = document.querySelectorAll(".movie-trailer");
+        // console.log(trailerContainer);
+
+        trailerContainer.forEach(function(event) {
+            // console.log(event);
+            event.addEventListener("click", (event) => {
+                console.log(event);
+                
+                if (!isNaN(event.target.dataset.containerId)) {
+                // console.log("clicked");
+
+                    const endPointMovieTrailer = `https://api.themoviedb.org/3/movie/${event.target.dataset.containerId}/videos?api_key=${apiKey}&language=en-US`;
+                    // https://api.themoviedb.org/3/movie/373571?api_key=eb942738a2bb8b5943c88166d66d5f7d&language=en-US
+                    // console.log(endPointMoreInfo);
+
+                    const xhrMovieTrailer = new XMLHttpRequest;
+    
+                    xhrMovieTrailer.open("GET", endPointMovieTrailer);
+                    xhrMovieTrailer.send();
+                    xhrMovieTrailer.onreadystatechange = () => {
+                        if (xhrMovieTrailer.readyState == 4) {
+                            const jsonDataMovieTrailer = JSON.parse(xhrMovieTrailer.responseText);
+
+                            const $trailerContainer = document.querySelector(".movie-trailer");
+
+    
+                            console.log(jsonDataMovieTrailer.results[0].key);
+                            $popup.classList.add("active-trailer");
+                            $popup.innerHTML = $popupHTMLTrailer(jsonDataMovieTrailer);
+
+                            document.querySelector("#close-btn").addEventListener("click", ()=>{
+                                $popup.classList.remove("active-trailer");
+
+                            
+
+                            })
+
+                        }
+                    };
+                }
+            })
+        });
+    }
+
+
+
         const $pagination = document.querySelector('.pagination');
         const getPageNo = sessionStorage.getItem("pageNo");
+        const endPointHomePage = (pageNo)=>{
+            return `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=en-US&region=US&page=${pageNo}`;
+        }
 
         // when session storage is more then 1
         if(getPageNo > 1){
             console.log("yes");
-            innitialAPIcall(getPageNo);
+            getAllMovieData(endPointHomePage(getPageNo));
         // user just open when no session storage found
         }else{
             sessionStorage.setItem("pageNo", 1);
-            innitialAPIcall(1);
+            getAllMovieData(endPointHomePage(1));
         }
 
         $pagination.addEventListener('click', (event) => {
@@ -142,19 +214,17 @@ window.onload = function() {
             if (!isNaN(`${event.target.innerText}`)) {
                 // then set session storage with the clicked page number
                 sessionStorage.setItem("pageNo", `${event.target.innerText}`);
-                innitialAPIcall(event.target.innerText);
+                getAllMovieData(endPointHomePage(event.target.innerText));
 
                 // if next or previous was clicked
             } else if(event.target.innerText == "Next"){
                 sessionStorage.setItem("pageNo", `${parseFloat(sessionStorage.getItem("pageNo"))+1}`);
-                innitialAPIcall(`${parseFloat(sessionStorage.getItem("pageNo"))}`);
+                getAllMovieData(endPointHomePage(`${parseFloat(sessionStorage.getItem("pageNo"))}`));
             }else if(event.target.innerText == "Previous"){
                 if(parseFloat(sessionStorage.getItem("pageNo")) > 1){
                     sessionStorage.setItem("pageNo", `${parseFloat(sessionStorage.getItem("pageNo"))-1}`);
-                    innitialAPIcall(`${parseFloat(sessionStorage.getItem("pageNo"))}`);
-
+                    getAllMovieData(endPointHomePage(`${parseFloat(sessionStorage.getItem("pageNo"))}`));
                 }
-                
             }
 
         })
