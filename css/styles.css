@@ -253,6 +253,8 @@ body {
 main {
   -webkit-box-shadow: 0px 0px 29px -13px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 0px 29px -13px rgba(0, 0, 0, 0.75);
+  -webkit-animation: manu-dropdown 500ms ease-in-out forwards;
+          animation: manu-dropdown 500ms ease-in-out forwards;
 }
 
 main .loginContainer {
@@ -279,6 +281,13 @@ main #popup-wrapper #popup {
   overflow: scroll;
 }
 
+main #popup-wrapper #popup span#close-btn {
+  position: absolute;
+  padding: 2px 11px;
+  color: #000;
+  cursor: pointer;
+}
+
 main #popup-wrapper #popup .movie-img {
   margin: 10px 0;
   height: 150px;
@@ -292,7 +301,7 @@ main #popup-wrapper #popup .movie-img img {
 }
 
 main #popup-wrapper #popup .popup-movie-details {
-  border-top: 1px solid #808080;
+  border-top: 1px solid #bbbbbb;
   padding-top: 10px;
 }
 
@@ -302,7 +311,7 @@ main #popup-wrapper #popup .popup-movie-details .movie-details .title-container 
 }
 
 main #popup-wrapper #popup .popup-movie-details .movie-details .title-container h2 {
-  margin-bottom: 0;
+  margin: 0;
 }
 
 main #popup-wrapper #popup .popup-movie-details .movie-details .title-container .release-date {
@@ -312,15 +321,80 @@ main #popup-wrapper #popup .popup-movie-details .movie-details .title-container 
   color: gray;
 }
 
+main #popup-wrapper #popup .popup-movie-details .movie-details .info-table {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  border: 1px solid #bbbbbb;
+  text-align: center;
+}
+
+main #popup-wrapper #popup .popup-movie-details .movie-details .info-table .review {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-column: 1 / span 2;
+}
+
+main #popup-wrapper #popup .popup-movie-details .movie-details .info-table .review img {
+  height: 25px;
+  margin-top: -10px;
+}
+
+main #popup-wrapper #popup .popup-movie-details .movie-details .info-table .review :nth-child(2) {
+  font-size: 25px;
+  padding-left: 8px;
+}
+
+main #popup-wrapper #popup .popup-movie-details .movie-details .info-table .review :nth-child(3) {
+  font-size: 10px;
+}
+
+main #popup-wrapper #popup .popup-movie-details .movie-details .info-table .review :nth-child(4) {
+  font-size: 20px;
+  color: #727272;
+  padding-left: 5px;
+}
+
+main #popup-wrapper #popup .popup-movie-details .movie-details .info-table .genres {
+  border-top: 1px solid #bbbbbb;
+  border-bottom: 1px solid #bbbbbb;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-column: 1 / span 2;
+  text-align: center;
+}
+
+main #popup-wrapper #popup .popup-movie-details .movie-details .info-table .runTime, main #popup-wrapper #popup .popup-movie-details .movie-details .info-table .languages, main #popup-wrapper #popup .popup-movie-details .movie-details .info-table .production {
+  border-top: 1px solid #bbbbbb;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-column: 1 / span 2;
+}
+
+main #popup-wrapper #popup .popup-movie-details .movie-details .info-table .runTime span, main #popup-wrapper #popup .popup-movie-details .movie-details .info-table .languages span, main #popup-wrapper #popup .popup-movie-details .movie-details .info-table .production span {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+main #popup-wrapper #popup .popup-movie-details .movie-details .info-table .imdb {
+  border-top: 1px solid #bbbbbb;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-column: 1 / span 2;
+}
+
 main #popup-wrapper #popup .popup-movie-details .movie-details .movie-overview {
   padding: 0px 15px;
 }
 
-main #popup-wrapper #popup span {
-  position: absolute;
-  padding: 2px 11px;
-  color: #000;
-  cursor: pointer;
+main #popup-wrapper #popup .popup-movie-details .movie-details .movie-overview h3 {
+  text-align: center;
+  margin: 10px;
+}
+
+main #popup-wrapper #popup .popup-movie-details .movie-details .movie-overview p {
+  padding-bottom: 20px;
 }
 
 main #popup-wrapper #popup.active {
@@ -332,18 +406,12 @@ main #popup-wrapper #popup.active {
 main #popup-wrapper #popup.active-trailer {
   -webkit-animation: manu-dropdown 600ms ease-in-out forwards;
           animation: manu-dropdown 600ms ease-in-out forwards;
-  width: 560px;
-  height: 343px;
+  width: 564px;
+  height: 345px;
   display: block;
   border: none;
   border-radius: 0%;
-  border: 2px solid;
-}
-
-main #popup-wrapper #popup.active-trailer span {
-  bottom: 0;
-  display: block;
-  padding: 3px;
+  background: #000;
 }
 
 main iframe {
@@ -438,24 +506,6 @@ header nav ul li:hover ul.inner-manu li {
   -webkit-animation: manu-dropdown 600ms ease-in-out forwards;
           animation: manu-dropdown 600ms ease-in-out forwards;
   text-align: left;
-}
-
-@-webkit-keyframes manu-dropdown {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes manu-dropdown {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
 }
 
 header nav.navClicked {
@@ -579,6 +629,8 @@ header nav.navClicked ul.main-manu li {
   -ms-grid-columns: 1fr 1fr;
       grid-template-columns: 1fr 1fr;
   grid-gap: 10px 10px;
+  -webkit-animation: manu-dropdown 600ms ease-in-out forwards;
+          animation: manu-dropdown 600ms ease-in-out forwards;
 }
 
 #movie-db #movie-container .single-container {
@@ -638,7 +690,7 @@ header nav.navClicked ul.main-manu li {
 }
 
 #movie-db #movie-container .single-container .backdrop-path .movie-info .movie-details .movie-trailer {
-  color: #f7f7f7;
+  color: #000000;
   -webkit-box-pack: right;
       -ms-flex-pack: right;
           justify-content: right;
@@ -648,6 +700,7 @@ header nav.navClicked ul.main-manu li {
   /* border: 1px solid; */
   text-align: center;
   background: #b5b5b5;
+  border: 1px solid #720000;
 }
 
 #movie-db #movie-container .single-container .backdrop-path .movie-info .movie-details .movie-trailer:hover {
@@ -799,6 +852,9 @@ footer .footer-social {
 }
 
 @media screen and (max-width: 575px), (max-width: 414px) {
+  main #popup-wrapper #popup {
+    margin-left: -200px;
+  }
   header {
     opacity: 1;
   }
@@ -828,5 +884,23 @@ footer .footer-social {
     -ms-grid-columns: 1fr 1fr;
         grid-template-columns: 1fr 1fr;
         grid-template-areas: "footer-inner-container-1 footer-inner-container-2" "footer-inner-container-3 footer-inner-container-4";
+  }
+}
+
+@-webkit-keyframes manu-dropdown {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes manu-dropdown {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }

@@ -30,13 +30,26 @@ document.addEventListener("DOMContentLoaded", () => {
         return `${months[monthFormatter < 10 ? monthFormatter.slice(1):monthFormatter.slice(0)]}`;
     }
 
+    const runTimeFormatter = (t)=>{
+        let hours = Math.floor(t/60);
+        let mins = t%60;
+        // let minutes;
+        // if(mins < 10){
+        //     minutes = '0'+mins;
+        //     console.log(minutes);
+        // }else{
+        //     minutes = mins;
+        // }
+        return hours + 'h ' + mins + 'mins';
+    }
 
+    // console.log(runTimeFormatter(128));
     const $popup = document.querySelector("#popup");
 
     const moreInfoPopUp = () => {
         let moreDetails = document.querySelectorAll(".more-details");
 
-        moreDetails.forEach(function(event) {
+        moreDetails.forEach(function(event, i) {
 
             event.addEventListener("click", (event) => {
                 // console.log(event);
@@ -58,11 +71,11 @@ document.addEventListener("DOMContentLoaded", () => {
                                 document.querySelector("#popup > div").remove();
                                 $popup.classList.remove("active");
                             })
-
-                            window.onclick = function(event) {
-                                console.log(event);
-                                if (event.target != $popup) {
-                                    console.log("hi");
+                            // document.getElementById("myLI").parentElement.nodeName;
+                            document.onclick = (event)=> {
+                                console.log(event.target.offsetParent);
+                                if (event.target.offsetParent != $popup) {
+                                    console.log(event.target);
                                     // $popup.style.display = "none";
                                     document.querySelector("#popup > div").remove();
                                     $popup.classList.remove("active");
@@ -97,15 +110,15 @@ document.addEventListener("DOMContentLoaded", () => {
                             $popup.classList.toggle("active-trailer");
                             $popup.innerHTML = $popupHTMLTrailer(jsonDataMovieTrailer);
 
-                            document.querySelector("#close-btn").addEventListener("click", () => {
-                                document.querySelector("#trailer-wrapper").remove();
-                                $popup.classList.remove("active-trailer");
-                            })
+                            // document.querySelector("#close-btn").addEventListener("click", () => {
+                            //     document.querySelector("#trailer-wrapper").remove();
+                            //     $popup.classList.remove("active-trailer");
+                            // })
                             // When the user clicks anywhere outside of the modal, close it
                             window.onclick = function(event) {
                                 // alert("window");
-                                // console.log(event);
-                                if (event.target !== $popup) {
+                                // console.log(event.target.offsetParent);
+                                if (event.target != document.querySelector('iframe')) {
                                     // $popup.style.display = "none";
                                     document.querySelector("#trailer-wrapper").remove();
                                     $popup.classList.remove("active-trailer");
@@ -155,9 +168,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
     })
 
+    const budgetFormatter = (n)=>{
+        // console.log(n);
+        let num = Math.abs(Number(n));
+        // console.log(num);
+        // Nine Zeroes for Billions
+        return num >= 1.0e+9
+        ? (num / 1.0e+9).toFixed(0) + "B"
+        // Six Zeroes for Millions 
+        : num >= 1.0e+6
+
+        ? (num / 1.0e+6).toFixed(0) + "M"
+        // Three Zeroes for Thousands
+        : num >= 1.0e+3
+
+        ? num / (1.0e+3).toFixed(0) + "K"
+
+        : num;
+    }
+        // console.log((budgetFormatter(12144433)));
+
 
     const $movieHTML = (result) => {
-        // console.log(result);
+        // console.log((result.overview).split(" ").splice(0, 45).join(" "));
+        let movieOverview;
+        if((result.overview).split(" ").length < 44){
+            movieOverview = result.overview;
+        }else{
+            movieOverview = (result.overview).split(" ").splice(0, 50).join(" ")+ "...";
+        }
         // dateFormatter(result);
         return `
             <div class="single-container">
@@ -172,11 +211,11 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <p class="release-date">${dateFormatter(result.release_date)} ${result.release_date.split('-')[2]}, ${result.release_date.split('-')[0]}</p>
                             </div>
                             <div class="movie-trailer" data-container-id="${result.id}">
-                                Movie Trailer
+                                Trailer
                             </div>
                             <div class="movie-overview">
                                 
-                                <p><span>Overview:</span> ${result.overview}</p>
+                                <p><span>Overview:</span> ${movieOverview}</p>
                             </div>
                         </div>
                         <div class="more-details" data-container-id="${result.id}">
@@ -188,6 +227,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const $popupHTML = (result) => {
+        
+        let arrayFormatter = (r)=>{
+            // console.log(result.genres);
+            return (r.map((r)=>{return r.name;}))
+        }   
+        console.log();
         return `<div id="popup-container">
         <span id="close-btn">x</span>
             <div class="movie-img">
@@ -197,22 +242,36 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="movie-details">
                     <div class="title-container">
                         <h2>${result.original_title}</h2>
-                        <p class="release-date">(${dateFormatter(result.release_date)} ${result.release_date.split('-')[2]}, ${result.release_date.split('-')[0]})</p>
-                        <p>$$ ${result.budget}</p>    
+                        <p class="release-date">${dateFormatter(result.release_date)} ${result.release_date.split('-')[2]}, ${result.release_date.split('-')[0]}</p>
                     </div>
+                    <div class="info-table">
+                        <div class="review">
+                            <img src="./img/star.png" alt="">
+                            <span>${result.vote_average}</span>
+                            <span>/10</span>
+                            <span>(${result.vote_count})</span>
+                        </div>
+                        <div class="genres">${arrayFormatter(result.genres).join(', ')}</div>
+                        <div>Budget</br>$${budgetFormatter(result.budget)}</div>                            
+                        <div class="revenue">Revenue</br>$${budgetFormatter(result.revenue)}</div>
+                        <div class="runTime">Run Time: ${runTimeFormatter(result.runtime)}</div>
+                        <div class="languages">Languages: ${arrayFormatter(result.spoken_languages).join(", ")}</div>
+                        <div class="production"><span>PRODUCTION</span></br>${arrayFormatter(result.production_companies).join("</br>")}</div>
+                        <div class="imdb"><a href="https://www.imdb.com/title/${result.imdb_id}/" target="_blank">Visit IMDB</a></div>
+
+                        </div>
                     <div class="movie-overview">
+                        <h3>OVERVIEW</h3>
                         <p>${result.overview}</p>
                     </div>
                 </div>
                 </div>
-    
             </div>`;
     }
 
     const $popupHTMLTrailer = (result) => {
         return `
             <div id="trailer-wrapper">
-            <span id="close-btn">x</span>
             <iframe width="560" height="315" src="https://www.youtube.com/embed/${result.results[0].key}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>`;
     }
